@@ -17,6 +17,7 @@ public class ReservationsController : ControllerBase
         _jwtUtil = jwtUtil;
     }
 
+    // retrieves all reservations
     [HttpGet]
     public async Task<ActionResult<List<Reservation>>> GetAllReservations()
     {
@@ -24,6 +25,7 @@ public class ReservationsController : ControllerBase
         return Ok(reservations);
     }
 
+    // retrieves all active reservations for the authenticated user
     [HttpGet("active")]
     public async Task<ActionResult<List<Reservation>>> GetAllActiveReservations([FromHeader(Name = "Authorization")] string token)
     {
@@ -32,6 +34,7 @@ public class ReservationsController : ControllerBase
         return Ok(reservations);
     }
 
+    // retrieves the reservation history for the authenticated user
     [HttpGet("history")]
     public async Task<ActionResult<List<Reservation>>> GetAllHistoryReservations([FromHeader(Name = "Authorization")] string token)
     {
@@ -40,6 +43,7 @@ public class ReservationsController : ControllerBase
         return Ok(reservations);
     }
 
+    // cancels a reservation if the authenticated user is the owner
     [HttpPut("cancel/{id}")]
     public async Task<ActionResult<Reservation>> CancelReservation([FromHeader(Name = "Authorization")] string token, int id)
     {
@@ -59,6 +63,7 @@ public class ReservationsController : ControllerBase
         return Ok(cancelledReservation);
     }
 
+    // creates a reservation for an authenticated user
     [HttpPost("createWithAuth")]
     public async Task<ActionResult<Reservation>> CreateReservationWithAuth(
        [FromBody] CreateReservationDto dto,
@@ -88,6 +93,7 @@ public class ReservationsController : ControllerBase
         return Ok(createdReservation);
     }
 
+    // creates a reservation for an anonymous user
     [HttpPost("createWithoutAuth")]
     public async Task<ActionResult<Reservation>> CreateReservationWithoutAuth([FromBody] CreateReservationDto dto)
     {
@@ -113,7 +119,7 @@ public class ReservationsController : ControllerBase
         return Ok(createdReservation);
     }
 
-
+    // extracts user ID from the access token
     private string GetUserIdFromToken(string token)
     {
         if (string.IsNullOrEmpty(token) || !token.StartsWith("Bearer "))

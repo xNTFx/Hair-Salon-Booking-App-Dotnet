@@ -13,6 +13,7 @@ public class ServicesController : ControllerBase
         _servicesService = servicesService;
     }
 
+    // retrieves all available services
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Service>>> GetAllServices()
     {

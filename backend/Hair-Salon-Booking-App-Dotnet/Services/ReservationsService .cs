@@ -11,7 +11,6 @@ public class ReservationsService : IReservationsService
         _reservationsRepository = reservationsRepository;
     }
 
-    // Metoda wywoływana okresowo (patrz sekcja Scheduling poniżej)
     public async Task MarkReservationsAsCompletedAsync()
     {
         await _reservationsRepository.UpdateCompletedReservationsAsync();
@@ -44,7 +43,6 @@ public class ReservationsService : IReservationsService
 
     public async Task<Reservation> CancelReservationAsync(int reservationId)
     {
-        // Zakładamy, że kontroler weryfikuje uprawnienia, stąd tutaj po prostu anulujemy rezerwację.
         return await _reservationsRepository.CancelReservationAsync(reservationId);
     }
 

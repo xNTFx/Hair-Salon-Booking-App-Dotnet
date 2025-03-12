@@ -17,6 +17,7 @@ public class AuthController : ControllerBase
         _jwtUtil = jwtUtil;
     }
 
+    // handles user login and generates access and refresh tokens
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] AuthRequest request)
     {
@@ -38,6 +39,7 @@ public class AuthController : ControllerBase
         return Ok(new { accessToken, user });
     }
 
+    // handles user registration and generates access and refresh tokens
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] AuthRequest request)
     {
@@ -46,7 +48,6 @@ public class AuthController : ControllerBase
 
         var user = await _authService.CreateUserAsync(request.Username, request.Password, "user");
 
-        //  logowanie po rejestracji:
         var accessToken = _jwtUtil.GenerateAccessToken(user.Username, user.Id, user.Role);
         var refreshToken = _jwtUtil.GenerateRefreshToken(user.Username);
         await _authService.UpdateRefreshTokenAsync(user.Id, refreshToken);
@@ -61,7 +62,7 @@ public class AuthController : ControllerBase
         return Created("", new { accessToken, user });
     }
 
-
+    // handles user logout by deleting the refresh token cookie
     [HttpPost("logout")]
     public IActionResult Logout()
     {
@@ -69,6 +70,7 @@ public class AuthController : ControllerBase
         return NoContent();
     }
 
+    // handles refreshing the access token using a valid refresh token
     [HttpGet("refresh")]
     public async Task<IActionResult> RefreshToken()
     {
@@ -82,7 +84,6 @@ public class AuthController : ControllerBase
         {
             return StatusCode(StatusCodes.Status403Forbidden, new { message = "user not found for refresh token." });
         }
-
 
         ClaimsPrincipal claims;
         try

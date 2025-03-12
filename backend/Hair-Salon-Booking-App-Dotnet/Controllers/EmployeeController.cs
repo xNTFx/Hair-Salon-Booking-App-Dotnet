@@ -13,6 +13,7 @@ public class EmployeeController : ControllerBase
         _employeeService = employeeService;
     }
 
+    // retrieves all employees
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Employee>>> GetAllEmployees()
     {

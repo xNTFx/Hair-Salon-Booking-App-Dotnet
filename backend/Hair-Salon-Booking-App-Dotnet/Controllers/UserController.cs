@@ -15,10 +15,10 @@ public class UserController : ControllerBase
         _jwtUtil = jwtUtil;
     }
 
+    // retrieves the profile of the authenticated user
     [HttpGet("profile")]
     public async Task<IActionResult> GetProfile()
     {
-        // Pobranie nagłówka Authorization
         if (!Request.Headers.TryGetValue("Authorization", out var authHeader))
         {
             return Unauthorized(new { message = "Authorization header missing or invalid" });
