@@ -3,13 +3,13 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Hair_Salon_Booking_App_Dotnet</RootNamespace>
     <AssemblyName>Hair_Salon_Booking_App_Dotnet</AssemblyName>
 
     <LangVersion>11.0</LangVersion>
-    <NoWarn>1701;1702;nullable</NoWarn>
+    <NoWarn>1701;1702</NoWarn>
     <InvariantGlobalization>true</InvariantGlobalization>
     <RollForward>Major</RollForward>
   </PropertyGroup>
