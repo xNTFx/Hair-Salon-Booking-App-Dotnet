@@ -1,0 +1,62 @@
+# Visual Studio & Rider
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.pidb
+*.dotCover
+
+# Build output
+bin/
+obj/
+out/
+debug/
+release/
+
+# Logs
+*.log
+logs/
+*.tlog
+
+# Dependency cache
+packages/
+node_modules/
+project.lock.json
+project.assets.json
+
+# Environment-specific files
+.env
+.env.local
+.env.development
+.env.production
+
+# Rider & Resharper
+*.sln.iml
+*.sln.cache
+*.sln.ide
+
+# MacOS & Linux
+.DS_Store
+*.swp
+*.swo
+
+# NuGet
+*.nupkg
+.nuget/
+packages/
+
+# Entity Framework
+Migrations/
+
+# Secrets
+secrets.json
+appsettings.Local.json
+
+# Azure
+*.azure/
+
+appsettings.json
+appsettings.*.json
+
