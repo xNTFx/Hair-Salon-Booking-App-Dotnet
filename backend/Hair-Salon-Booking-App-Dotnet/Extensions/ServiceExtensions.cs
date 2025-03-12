@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -22,19 +21,10 @@ public static class ServiceExtensions
         });
     }
 
-    public static void ConfigureDatabase(this IServiceCollection services, IConfiguration configuration, ILoggerFactory loggerFactory)
+    public static void ConfigureDatabase(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
-        var logger = loggerFactory.CreateLogger("DatabaseConfiguration");
-        
-        logger.LogInformation("Using database connection string: {ConnectionString}", connectionString);
-
         services.AddDbContext<AppDbContext>(options =>
-        {
-            options.UseNpgsql(connectionString);
-            options.UseLoggerFactory(loggerFactory);
-            options.EnableSensitiveDataLogging();
-        });
+            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
     }
 
     public static void ConfigureRepositories(this IServiceCollection services)
@@ -55,14 +45,11 @@ public static class ServiceExtensions
         services.AddScoped<IReservationsService, ReservationsService>();
     }
 
-    public static void ConfigureJwtAuthentication(this IServiceCollection services, IConfiguration configuration, ILoggerFactory loggerFactory)
+    public static void ConfigureJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
         var jwtSettings = configuration.GetSection("Jwt");
         var key = Encoding.UTF8.GetBytes(jwtSettings["AccessTokenSecret"]);
-        var logger = loggerFactory.CreateLogger("JwtConfiguration");
-        
-        logger.LogInformation("Configuring JWT Authentication");
-        
+
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
