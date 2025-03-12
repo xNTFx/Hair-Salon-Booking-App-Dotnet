@@ -8,7 +8,6 @@
     <RootNamespace>Hair_Salon_Booking_App_Dotnet</RootNamespace>
     <AssemblyName>Hair_Salon_Booking_App_Dotnet</AssemblyName>
     
-    <RuntimeFrameworkVersion>8.0.0</RuntimeFrameworkVersion>
     <LangVersion>11.0</LangVersion>
     <NoWarn>1701;1702;nullable</NoWarn>
     <InvariantGlobalization>true</InvariantGlobalization>
