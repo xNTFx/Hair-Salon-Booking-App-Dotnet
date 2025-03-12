@@ -1,13 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-	<OutputType>Exe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
-	<PublishDir>./out</PublishDir>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Hair_Salon_Booking_App_Dotnet</RootNamespace>
-	<AssemblyName>Hair_Salon_Booking_App_Dotnet</AssemblyName>
+    <AssemblyName>Hair_Salon_Booking_App_Dotnet</AssemblyName>
+    
+    <RuntimeFrameworkVersion>8.0.0</RuntimeFrameworkVersion>
+    <LangVersion>11.0</LangVersion>
+    <NoWarn>1701;1702;nullable</NoWarn>
+    <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
 
   <ItemGroup>
