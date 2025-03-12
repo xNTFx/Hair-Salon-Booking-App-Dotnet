@@ -1,5 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -21,10 +22,19 @@ public static class ServiceExtensions
         });
     }
 
-    public static void ConfigureDatabase(this IServiceCollection services, IConfiguration configuration)
+    public static void ConfigureDatabase(this IServiceCollection services, IConfiguration configuration, ILoggerFactory loggerFactory)
     {
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        var logger = loggerFactory.CreateLogger("DatabaseConfiguration");
+        
+        logger.LogInformation("Using database connection string: {ConnectionString}", connectionString);
+
         services.AddDbContext<AppDbContext>(options =>
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+        {
+            options.UseNpgsql(connectionString);
+            options.UseLoggerFactory(loggerFactory);
+            options.EnableSensitiveDataLogging();
+        });
     }
 
     public static void ConfigureRepositories(this IServiceCollection services)
@@ -45,11 +55,14 @@ public static class ServiceExtensions
         services.AddScoped<IReservationsService, ReservationsService>();
     }
 
-    public static void ConfigureJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
+    public static void ConfigureJwtAuthentication(this IServiceCollection services, IConfiguration configuration, ILoggerFactory loggerFactory)
     {
         var jwtSettings = configuration.GetSection("Jwt");
         var key = Encoding.UTF8.GetBytes(jwtSettings["AccessTokenSecret"]);
-
+        var logger = loggerFactory.CreateLogger("JwtConfiguration");
+        
+        logger.LogInformation("Configuring JWT Authentication");
+        
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
