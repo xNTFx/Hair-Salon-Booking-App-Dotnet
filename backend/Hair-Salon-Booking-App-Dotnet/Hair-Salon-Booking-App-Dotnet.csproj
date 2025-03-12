@@ -7,10 +7,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Hair_Salon_Booking_App_Dotnet</RootNamespace>
     <AssemblyName>Hair_Salon_Booking_App_Dotnet</AssemblyName>
-    
+
     <LangVersion>11.0</LangVersion>
     <NoWarn>1701;1702;nullable</NoWarn>
     <InvariantGlobalization>true</InvariantGlobalization>
+    <RollForward>Major</RollForward>
   </PropertyGroup>
 
   <ItemGroup>
