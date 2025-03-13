@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using HairSalonBookingApp.Models;
 
 namespace HairSalonBookingApp.Extensions
 {
@@ -56,7 +57,9 @@ namespace HairSalonBookingApp.Extensions
         public static void ConfigureJwtAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             var jwtSettings = configuration.GetSection("Jwt");
-            var key = Encoding.UTF8.GetBytes(jwtSettings["AccessTokenSecret"]);
+            var accessTokenSecret = jwtSettings["AccessTokenSecret"] 
+                ?? throw new ArgumentNullException("Jwt:AccessTokenSecret is required");
+            var key = Encoding.UTF8.GetBytes(accessTokenSecret);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
