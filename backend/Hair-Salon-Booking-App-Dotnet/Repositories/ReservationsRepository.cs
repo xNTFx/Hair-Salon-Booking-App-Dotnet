@@ -66,21 +66,23 @@ public class ReservationsRepository : IReservationsRepository
         return reservation;
     }
 
-    public async Task UpdateCompletedReservationsAsync()
+public async Task UpdateCompletedReservationsAsync()
+{
+    var now = DateTime.UtcNow;
+    
+    var reservationsToUpdate = await _context.Reservations
+        .Where(r => r.Status == ReservationStatus.PENDING)
+        .ToListAsync();
+
+    foreach (var reservation in reservationsToUpdate)
     {
-        var now = DateTime.UtcNow;
-
-        var reservationsToUpdate = await _context.Reservations
-            .Where(r => r.Status == ReservationStatus.PENDING
-                        && r.ReservationDate <= now.Date
-                        && r.EndTime < now.TimeOfDay)
-            .ToListAsync();
-
-        foreach (var reservation in reservationsToUpdate)
+        var reservationDateTime = reservation.ReservationDate.Add(reservation.EndTime);
+        if (reservationDateTime < now)
         {
             reservation.Status = ReservationStatus.COMPLETED;
         }
-
-        await _context.SaveChangesAsync();
     }
+
+    await _context.SaveChangesAsync();
+}
 }

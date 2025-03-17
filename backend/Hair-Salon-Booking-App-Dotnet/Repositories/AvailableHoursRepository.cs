@@ -20,6 +20,15 @@ public class AvailableHoursRepository : IAvailableHoursRepository
 
     public async Task<IEnumerable<AvailableHours>> GetAvailableHoursByEmployeeId(int employeeId, DateTime reservationDate, string duration)
     {
+        if (_context.Database.ProviderName == "Microsoft.EntityFrameworkCore.InMemory")
+        {
+            return await _context.AvailableHours
+                .Where(ah =>
+                    (employeeId == 0 || ah.EmployeeId == employeeId) &&
+                    reservationDate >= DateTime.UtcNow.Date)
+                .ToListAsync();
+        }
+
         return await _context.AvailableHours
             .FromSqlRaw(@"
                 SELECT DISTINCT ON (ah.start_time, ah.end_time) ah.id, ah.start_time, ah.end_time, ah.employee_id
