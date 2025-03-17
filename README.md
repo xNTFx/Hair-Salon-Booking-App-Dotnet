@@ -2,7 +2,7 @@
 
 ## Tech Stack
 
-- **.NET 7.0**
+- **.NET 9.0**
 - **C#**
 - **React**
 - **TypeScript**
@@ -12,7 +12,7 @@
 
 ## Link to Website
 
-https://www.hairsalonbookingapp-dotnet.pawelsobon.pl/
+[https://www.hairsalonbookingapp-dotnet.pawelsobon.pl/](https://www.hairsalonbookingapp-dotnet.pawelsobon.pl/)
 
 ## Example Image
 
@@ -22,7 +22,7 @@ https://www.hairsalonbookingapp-dotnet.pawelsobon.pl/
 
 ### Prerequisites
 
-- .NET SDK 7.0
+- .NET SDK 9.0
 - Node.js & npm
 - PostgreSQL database instance
 
@@ -32,9 +32,9 @@ https://www.hairsalonbookingapp-dotnet.pawelsobon.pl/
    ```sh
    git clone https://github.com/xNTFx/hair-salon-booking-app-dotnet.git
    ```
-2. Navigate to the project directory:
+2. Navigate to the backend project directory:
    ```sh
-   cd hair-salon-booking-app-dotnet
+   cd Hair-Salon-Booking-App-Dotnet-main/backend/Hair-Salon-Booking-App-Dotnet
    ```
 3. Install backend dependencies:
    ```sh
@@ -47,7 +47,7 @@ https://www.hairsalonbookingapp-dotnet.pawelsobon.pl/
    ```
 6. Navigate to the frontend directory:
    ```sh
-   cd client
+   cd ../../frontend
    ```
 7. Install frontend dependencies:
    ```sh
@@ -57,6 +57,26 @@ https://www.hairsalonbookingapp-dotnet.pawelsobon.pl/
    ```sh
    npm run dev
    ```
+
+## Running Tests
+
+### Backend Tests
+
+To run backend tests, execute:
+
+```sh
+cd Hair-Salon-Booking-App-Dotnet-main/backend/Hair-Salon-Booking-App-Dotnet
+ dotnet test
+```
+
+### Frontend Tests
+
+To run frontend tests, navigate to the `frontend` directory and run:
+
+```sh
+cd hair-salon-booking-app-dotnet/frontend
+npm test
+```
 
 ## Environment Variables
 
