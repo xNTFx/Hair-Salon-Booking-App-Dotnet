@@ -103,3 +103,19 @@ Create a file named `appsettings.json` and configure it with the following value
 
 - **Backend** runs on `http://localhost:8080` (unless configured otherwise in `appsettings.json`).
 - **Frontend** runs on `http://localhost:5173` (default Vite port).
+
+## Running with Docker
+
+### Start Docker Containers
+
+To build and start the application using Docker, run:
+```sh
+docker-compose up --build
+```
+
+### Stop Docker Containers
+
+To stop and remove the containers, run:
+```sh
+docker-compose down
+```
